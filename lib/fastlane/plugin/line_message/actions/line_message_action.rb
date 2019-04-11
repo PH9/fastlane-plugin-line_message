@@ -15,16 +15,18 @@ module Fastlane
         http.set_debug_output($stdout)
 
         request = Net::HTTP::Post.new(uri.request_uri)
-        request["Content-Type"] = "application/json;charset=UTF-8"
         request["Authorization"] = "Bearer #{api_token}"
         request.set_form_data({
           "to" => to,
           "messages" => params[:messages],
         })
 
-        http.request(request)
+        request["Content-Type"] = "application/json;charset=UTF-8"
 
-        UI.message("The line_message plugin is working!")
+        response = http.request(request)
+
+        UI.message("#{response}")
+        response
       end
 
       def self.description
