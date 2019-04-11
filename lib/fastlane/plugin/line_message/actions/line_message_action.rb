@@ -1,6 +1,6 @@
 require 'fastlane/action'
 require 'net/https'
-require "uri"
+require 'uri'
 require 'json'
 require_relative '../helper/line_message_helper'
 
@@ -14,7 +14,6 @@ module Fastlane
         uri = URI.parse('https://api.line.me/v2/bot/message/push')
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
-        http.set_debug_output($stdout)
 
         request = Net::HTTP::Post.new(uri.request_uri)
         request["Authorization"] = "Bearer #{api_token}"
@@ -24,7 +23,6 @@ module Fastlane
 
         response = http.request(request)
 
-        UI.message("#{response}")
         response
       end
 
