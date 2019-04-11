@@ -69,7 +69,7 @@ module Fastlane
                                   env_name: "LINE_MESSAGE_API_TO",
                                description: "Target id you want to send message.",
                                   optional: false,
-                                      type: String)
+                                      type: String),
           FastlaneCore::ConfigItem.new(key: :api_token,
                                   env_name: "LINE_MESSAGE_API_TOKEN",
                                description: "API token for Line Messaging API",
