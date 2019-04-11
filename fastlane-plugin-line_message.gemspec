@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = 'phai@live.com'
 
   spec.summary       = 'Use to send message to Line chat'
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-line_message"
+  spec.homepage      = "https://github.com/PH9/fastlane-plugin-line_message"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)
