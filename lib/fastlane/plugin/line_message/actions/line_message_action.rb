@@ -80,7 +80,8 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :messages,
                                   env_name: "LINE_MESSAGE_API_MESSAGES",
                                description: "Message you want to send follow https://developers.line.biz/en/docs/messaging-api/ spces",
-                                  optional: false),
+                                  optional: false
+                                      type: Array),
         ]
       end
 
