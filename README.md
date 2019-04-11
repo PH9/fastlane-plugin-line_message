@@ -18,6 +18,21 @@ Use to send message to Line chat
 
 ## Example
 
+```ruby
+line_message(
+    api_token: ENV["LINE_MESSAGE_API_TOKEN"],
+    to: ENV["LINE_MESSAGE_TARGET"],
+    messages: [{
+        "type": "text",
+        "text": "test ๆ"
+    }, {
+        "type": "sticker",
+        "packageId": "1",
+        "stickerId": "1"
+    }]
+)
+```
+
 Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
 
 - Post message to https://api.line.me/v2/bot/message/push
