@@ -66,17 +66,21 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :to,
-                                  env_name: "LINE_MESSAGE_API_TO",
-                               description: "Target id you want to send message",
-                                  optional: false,
-                                      type: String),
           FastlaneCore::ConfigItem.new(key: :api_token,
                                   env_name: "LINE_MESSAGE_API_TOKEN",
                                description: "API token for Line Messaging API",
                               verify_block: proc do |value|
                                             UI.user_error!("No API token for Line Notify given, pass using `api_token: 'token'`") unless (value and not value.empty?)
                                           end),
+          FastlaneCore::ConfigItem.new(key: :to,
+                                  env_name: "LINE_MESSAGE_API_TO",
+                               description: "Target id you want to send message",
+                                  optional: false,
+                                      type: String),
+          FastlaneCore::ConfigItem.new(key: :messages,
+                                  env_name: "LINE_MESSAGE_API_MESSAGES",
+                               description: "Message you want to send follow https://developers.line.biz/en/docs/messaging-api/ spces",
+                                  optional: false),
         ]
       end
 
