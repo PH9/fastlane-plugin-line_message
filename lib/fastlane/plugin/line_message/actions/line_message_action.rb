@@ -18,10 +18,10 @@ module Fastlane
         request["Authorization"] = "Bearer #{api_token}"
         request.set_form_data({
           "to" => to,
-          "messages" => params[:messages].to_json,
+          "messages" => params[:messages]
         })
 
-        request["Content-Type"] = "application/json;charset=UTF-8"
+        request["Content-Type"] = "application/json"
 
         response = http.request(request)
 
