@@ -46,6 +46,7 @@ module Fastlane
               "type": "text",
               "text": "Download at https://..."
             }, {
+              # check sticker list https://developers.line.biz/media/messaging-api/sticker_list.pdf
               "type": "sticker",
               "packageId": "2",
               "stickerId": "144"
@@ -64,6 +65,11 @@ module Fastlane
 
       def self.available_options
         [
+          FastlaneCore::ConfigItem.new(key: :to,
+                                  env_name: "LINE_MESSAGE_API_TO",
+                               description: "Target id you want to send message.",
+                                  optional: false,
+                                      type: String)
           FastlaneCore::ConfigItem.new(key: :api_token,
                                   env_name: "LINE_MESSAGE_API_TOKEN",
                                description: "API token for Line Messaging API",
