@@ -1,10 +1,26 @@
 require 'fastlane/action'
+require 'net/https'
 require_relative '../helper/line_message_helper'
 
 module Fastlane
   module Actions
     class LineMessageAction < Action
       def self.run(params)
+        to = params[:to] || ENV["LINE_MESSAGE_TARGET"]
+        api_token = params[:api_token] || ENV["LINE_MESSAGE_API_TOKEN"]
+
+        uri = URI.parse('https://api.line.me/v2/bot/message/push')
+        Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |req|
+          request = Net::HTTP::Post.new(uri)
+          request["Authorization"] = "Bearer #{api_token}"
+          request.set_form_data({
+            to: to,
+            messages: params[:messages],
+          })
+
+          req.request(request)
+        end
+
         UI.message("The line_message plugin is working!")
       end
 
@@ -20,18 +36,40 @@ module Fastlane
         # If your method provides a return value, you can describe here what it does
       end
 
+      def self.example_code
+        [
+          'line_message(message: "App is ready!!!")',
+          'line_message(
+            messages: [{
+              "text": "App is ready!!!"
+            }, {
+              "type": "text",
+              "text": "Download at https://..."
+            }, {
+              "type": "sticker",
+              "packageId": "2",
+              "stickerId": "144"
+            }]
+          )'
+        ]
+      end
+
+      def self.category
+        :notifications
+      end
+
       def self.details
-        # Optional:
-        "Use api from https://developers.line.biz call api at https://api.line.me/v2/bot/message/push"
+        "Use api from https://developers.line.biz/en/docs/messaging-api/ call api at https://api.line.me/v2/bot/message/push"
       end
 
       def self.available_options
         [
-          # FastlaneCore::ConfigItem.new(key: :your_option,
-          #                         env_name: "LINE_MESSAGE_YOUR_OPTION",
-          #                      description: "A description of your option",
-          #                         optional: false,
-          #                             type: String)
+          FastlaneCore::ConfigItem.new(key: :api_token,
+                                  env_name: "LINE_MESSAGE_API_TOKEN",
+                               description: "API token for Line Messaging API",
+                              verify_block: proc do |value|
+                                            UI.user_error!("No API token for Line Notify given, pass using `api_token: 'token'`") unless (value and not value.empty?)
+                                          end),
         ]
       end
 
