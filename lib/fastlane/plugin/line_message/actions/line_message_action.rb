@@ -18,7 +18,7 @@ module Fastlane
 
         request = Net::HTTP::Post.new(uri.request_uri)
         request["Authorization"] = "Bearer #{api_token}"
-        request.body = {:make => "bmw", :year => "2003"}
+        request.set_form_data({:to => to, :messages => params[:messages]})
 
         request["Content-Type"] = "application/json"
 
