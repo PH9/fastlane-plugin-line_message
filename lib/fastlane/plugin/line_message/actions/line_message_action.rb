@@ -10,16 +10,18 @@ module Fastlane
         api_token = params[:api_token] || ENV["LINE_MESSAGE_API_TOKEN"]
 
         uri = URI.parse('https://api.line.me/v2/bot/message/push')
-        Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |req|
-          request = Net::HTTP::Post.new(uri)
-          request["Authorization"] = "Bearer #{api_token}"
-          request.set_form_data({
-            to: to,
-            messages: params[:messages],
-          })
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.set_debug_output($stdout)
 
-          req.request(request)
-        end
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request["Authorization"] = "Bearer #{api_token}"
+        request.set_form_data({
+          to: to,
+          messages: params[:messages],
+        })
+
+        http.request(request)
 
         UI.message("The line_message plugin is working!")
       end
