@@ -1,5 +1,6 @@
 require 'fastlane/action'
 require 'net/https'
+require "uri"
 require_relative '../helper/line_message_helper'
 
 module Fastlane
@@ -19,7 +20,7 @@ module Fastlane
         request.set_form_data({
           "to" => to,
           "messages" => params[:messages]
-        })
+        }.to_json)
 
         request["Content-Type"] = "application/json"
 
