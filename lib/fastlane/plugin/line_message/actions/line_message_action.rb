@@ -16,10 +16,10 @@ module Fastlane
 
         request = Net::HTTP::Post.new(uri.request_uri)
         request["Authorization"] = "Bearer #{api_token}"
-        request.body = {
-          to: to,
-          messages: params[:messages],
-        }
+        request.set_form_data({
+          "to" => to,
+          "messages" => params[:messages],
+        })
 
         http.request(request)
 
