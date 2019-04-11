@@ -15,6 +15,7 @@ module Fastlane
         http.set_debug_output($stdout)
 
         request = Net::HTTP::Post.new(uri.request_uri)
+        request["Content-Type"] = "application/json;charset=UTF-8"
         request["Authorization"] = "Bearer #{api_token}"
         request.set_form_data({
           "to" => to,
