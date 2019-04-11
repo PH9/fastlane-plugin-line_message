@@ -38,7 +38,8 @@ module Fastlane
 
       def self.example_code
         [
-          'line_message(message: "App is ready!!!")',
+          # TODO: default type as text
+          # 'line_message(message: "App is ready!!!")',
           'line_message(
             messages: [{
               "text": "App is ready!!!"
